@@ -1,0 +1,1 @@
+{"features": ["Number of Worms (non-counted)", "Temp01", "Hum01", "Heat01", "SoilM01", "SoilM02", "Location"], "categorical_features": ["Location"], "numeric_features": ["Number of Worms (non-counted)", "Temp01", "Hum01", "Heat01", "SoilM01", "SoilM02"], "target_variables": ["Phosphorous", "Nitrogen", "Potassium"]}
