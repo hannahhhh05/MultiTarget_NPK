@@ -27,6 +27,12 @@ st.write("""
 This app predicts the Nitrogen (N), Phosphorus (P), and Potassium (K) levels in compost based on available input features.
 """)
 
+with open('last_update.txt', 'r') as f:
+    last_update = f.read().strip()
+
+st.write(f"Last updated: {last_update}")
+
+
 input_data = {}
 
 # Numeric features
