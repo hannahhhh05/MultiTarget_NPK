@@ -2,7 +2,7 @@ name: MultiTarget run
 
 on:
   schedule:
-    - cron: '0 0 * * *'  # Runs at 12 am utc daily
+    - cron: '0 1 * * *'  # Runs at 12 am utc daily
   workflow_dispatch:  
 
 jobs:
@@ -35,9 +35,17 @@ jobs:
       run: |
         echo $(date -u) > last_update.txt
     
-    - name: Commit and push if changed
+    - name: Commit and push changes
       run: |
         git config --local user.name 'hannahhhh05'
         git config --local user.email 's10243399@connect.np.edu.sg'
         git add -A
-        git diff --quiet && git diff --staged --quiet || (git commit -m "Update forecast data" && git push)
+        git commit -m "Update models data" || exit 0 
+        git fetch origin main
+        git merge origin/main --strategy-option=ours  
+        git push origin main
+    
+    - name: Force push if necessary
+      if: failure()
+      run: |
+        git push origin main --force
