@@ -2,30 +2,38 @@ name: MultiTarget run
 
 on:
   schedule:
-    - cron: '*/30 * * * *'  # Runs at 00:00 UTC every day
-  workflow_dispatch:  # Allows manual triggers
+    - cron: '*/30 * * * *'  # Runs at 12 am utc daily
+  workflow_dispatch:  
 
 jobs:
-  multitarget_model:
+  update_forecast:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
         python-version: '3.9'
+    
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
+    
+    - name: Debug requirements
+      run: |
+        pip freeze
+    
     - name: Run multi_target model
       env:
         GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
       run: |
         python schedule_multioutput_npk.py
+    
     - name: Commit and push if changed
       run: |
-        git config --global user.name 'hannahhhh05'
-        git config --global user.email 's10243399@connect.np.edu.sg'
+        git config --local user.name 'hannahhhh05'
+        git config --local user.email 's10243399@connect.np.edu.sg'
         git add -A
         git diff --quiet && git diff --staged --quiet || (git commit -m "Update forecast data" && git push)
