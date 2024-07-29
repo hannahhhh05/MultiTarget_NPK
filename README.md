@@ -38,7 +38,7 @@ This project trains a machine learning model to predict Nitrogen (N), Phosphorus
 
 2. Run the Streamlit app:
    ```
-   streamlit run streamlit_app.py
+   streamlit run streamlit_multitarget_npk.py
    ```
 
 ## GitHub Actions
