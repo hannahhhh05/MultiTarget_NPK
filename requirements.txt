@@ -1,6 +1,7 @@
 pandas
 numpy
 scipy
+matplotlib
 scikit-learn
 joblib
 gspread
