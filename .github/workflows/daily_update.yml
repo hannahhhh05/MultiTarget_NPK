@@ -30,6 +30,10 @@ jobs:
         GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
       run: |
         python schedule_multioutput_npk.py
+
+    - name: Update last_update.txt
+      run: |
+        echo $(date -u) > last_update.txt
     
     - name: Commit and push if changed
       run: |
