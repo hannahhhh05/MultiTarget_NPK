@@ -5,7 +5,7 @@ This project trains a machine learning model to predict Nitrogen (N), Phosphorus
 ## Project Structure
 
 - `schedule_multioutput_npk.py`: Main script for data processing and model training
-- `streamlit_multitarge_npk.py`: Streamlit app for visualizing predictions
+- `streamlit_multitarget_npk.py`: Streamlit app for visualizing predictions
 - `models/`: Directory containing saved model files and metrics (created by the training script)
 
 ## Setup
