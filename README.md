@@ -1,53 +1,65 @@
-# Timeseries_Nitrogen
+# NPK Prediction Model
 
-## Description
-This project provides a Streamlit web application for forecasting Nitrogen levels in compost using time series analysis. It fetches data from Google Sheets, processes it, and uses ARIMA models to generate forecasts.
-Features
-
-Data retrieval from Google Sheets
-Time series analysis using ARIMA models
-Interactive web interface built with Streamlit
-Customizable forecast parameters
-Visualizations of historical data and forecasts
-Downloadable forecast results
-
-## Prerequisites
-
-* Python 3.7+
-* Google Cloud Platform account with enabled Google Sheets API
-* Streamlit account for deployment
-
-
-### Install required packages:
-* Copy pip install -r requirements.txt
-
-### Set up Google Cloud credentials:
-
-* Create a service account and download the JSON key file
-* Rename the key file to google_credentials.json and place it in the project root (do not commit this file to GitHub)
-
-
-
-## Configuration
-
-Update the base_directory_id in app.py with your Google Drive folder ID containing the data sheets.
-If deploying to Streamlit Cloud, add your Google credentials as a secret named GOOGLE_CREDENTIALS in the Streamlit Cloud dashboard.
-
-## Usage
-* Local Development
-* Run the Streamlit app locally:
-* Copy streamlit run app.py
-
-## Streamlit Cloud Deployment
-
-* Push your code to GitHub (ensure google_credentials.json is in .gitignore).
-* Connect your GitHub repo to Streamlit Cloud.
-* Add your Google credentials as a secret in the Streamlit Cloud dashboard.
-* Deploy the app.
+This project trains a machine learning model to predict Nitrogen (N), Phosphorus (P), and Potassium (K) levels based on various input features from compost data.
 
 ## Project Structure
 
-* streamlit_pottasium_timeseries.py: Main Streamlit application
-* schedule_pottasium_timeseries.py: Data processing and ARIMA model functions
-* requirements.txt: List of Python dependencies
-* .gitignore: Specifies intentionally untracked files to ignore
+- `npk_model_training.py`: Main script for data processing and model training
+- `streamlit_app.py`: Streamlit app for visualizing predictions
+- `models/`: Directory containing saved model files and metrics (created by the training script)
+
+## Setup
+
+1. Clone the repository:
+   ```
+   git clone https://github.com/hannahhh05/MultiTarget_NPK.git
+   cd MultiTarget_NPK
+   ```
+
+2. Install required packages:
+   ```
+   pip install -r requirements.txt
+   ```
+
+3. Set up Google Cloud credentials:
+   - Create a service account and download the JSON key
+   - Set the environment variable:
+     ```
+     export GOOGLE_CREDENTIALS='{"type": "service_account", ...}'
+     ```
+
+## Usage
+
+1. Run the model training script:
+   ```
+   python schedule_multioutput_npk.py
+   ```
+   This will create the `models/` directory with trained model files and metrics.
+
+2. Run the Streamlit app:
+   ```
+   streamlit run streamlit_app.py
+   ```
+
+## GitHub Actions
+
+The project includes a GitHub Actions workflow that automatically runs the model training script. To use it:
+
+1. Add your `GOOGLE_CREDENTIALS` as a secret in your GitHub repository settings.
+2. Push changes to the repository to trigger the workflow.
+
+## Notes
+
+- The `models/` directory is ignored by git to avoid committing large files.
+- Ensure you have the necessary permissions to access the Google Sheets data.
+
+## Dependencies
+
+- pandas
+- numpy
+- scikit-learn
+- joblib
+- gspread
+- google-auth
+- streamlit
+
